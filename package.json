@@ -1,0 +1,52 @@
+{
+	"name": "generate-vue-cli",
+	"version": "0.0.1",
+	"type": "module",
+	"description": "A simple CLI to generate the skeleton for a new Vue component instantly.",
+	"author": "Leesa Ward",
+	"repository": "https://github.com/doubleedesign/generate-vue-cli",
+	"bugs": "https://github.com/doubleedesign/generate-vue-cli/issues",
+	"license": "MIT",
+	"main": "bin/generate-vue",
+	"bin": {
+		"generate-vue": "bin/generate-vue.js"
+	},
+	"files": [
+		"bin/",
+		"src/",
+		"README.md",
+		"CHANGELOG.md",
+		"LICENSE"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"cli",
+		"vue",
+		"build-tools",
+		"generate-vue-cli"
+	],
+	"engines": {
+		"node": ">=10.x",
+		"npm": ">= 6.x"
+	},
+	"browserslist": [
+		"maintained node versions"
+	],
+	"dependencies": {
+		"chalk": "^5.3.0",
+		"commander": "^11.1.0",
+		"deep-keys": "^0.5.0",
+		"dotenv": "^16.3.1",
+		"fs-extra": "^11.2.0",
+		"inquirer": "^9.2.12",
+		"lodash": "^4.17.21",
+		"replace": "^1.2.2"
+	},
+	"devDependencies": {
+		"eslint": "^8.55.0",
+		"vue-eslint-parser": "^9.3.2",
+		"vue-tsc": "^1.8.22"
+	}
+}

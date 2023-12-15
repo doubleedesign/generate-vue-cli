@@ -1,0 +1,47 @@
+{
+	"root": true,
+	"extends": [
+		"eslint:recommended"
+	],
+	"parser": "vue-eslint-parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"env": {
+		"es6": true,
+		"node": true,
+		"browser": true
+	},
+	"rules": {
+		"indent": [
+			"warn",
+			"tab"
+		],
+		"quotes": [
+			"warn",
+			"single"
+		],
+		"semi": [
+			"warn",
+			"always"
+		],
+		"brace-style": [
+			1,
+			"stroustrup",
+			{
+				"allowSingleLine": false
+			}
+		],
+		"object-curly-spacing": [
+			"error",
+			"always"
+		],
+		"space-in-parens": 0,
+		"array-bracket-spacing": 0,
+		"computed-property-spacing": "off",
+		"space-before-function-paren": "off",
+		"no-nested-ternary": "off",
+		"space-unary-ops": "off"
+	}
+}
