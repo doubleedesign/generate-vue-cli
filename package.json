@@ -1,6 +1,6 @@
 {
 	"name": "generate-vue-cli",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"description": "A simple CLI to generate the skeleton for a new Vue component instantly.",
 	"author": "Leesa Ward",

@@ -14,8 +14,9 @@ This is a stripped-back MVP and does not have all the options equivalent to  gen
 - [Generate components](#generate-components)
 - [Custom component types](#custom-component-types)
 - [Custom component templates](#custom-component-templates)
+- [Custom additional files](#custom-additional-files)
 
-## You can run it using npx like this:
+## Quick start
 
 ```
   npx generate-vue-cli component Box
@@ -25,9 +26,7 @@ _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7
 
 ## Config File
 
-When you run GVC within your project the first time, it will ask you a series of questions to customize the cli for your project needs (this will create a "generate-vue-cli.json" config file).
-
-#### Example of the **generate-vue-cli.json** config file:
+When you run GVC within your project the first time, it will ask you a series of questions to customize the cli for your project needs (this will create a "generate-vue-cli.json" config file). Below is an example:
 
 ```json
 {
@@ -73,21 +72,18 @@ You can do so by extending the **generate-vue-cli.json** config file like this.
 	"component": {
 		"default": {
 			"path": "src/components",
-			"withLazy": false,
 			"withStory": false,
 			"withStyle": true,
 			"withTest": true
 		},
 		"page": {
 			"path": "src/pages",
-			"withLazy": true,
 			"withStory": false,
 			"withStyle": true,
 			"withTest": true
 		},
 		"layout": {
 			"path": "src/layout",
-			"withLazy": false,
 			"withStory": false,
 			"withStyle": false,
 			"withTest": true
@@ -150,8 +146,38 @@ The keys represent the type of file, and the values are the paths that point to 
 }
 ```
 
+- `npx generate-vue-cli component MyComponent` will use the `default` files and place the results in the `src/components` directory.
+- `npx generate-vue-cli component MyComponent --type=page` will use the `page` files and place the results in the `src/pages` directory.
+
 Notice in the `page.customTemplates` that we only specified the `component` custom template type. That's because all the custom template types are optional. If you don't set the other types, GVC will default to using the built-in templates it comes with.
 
+## Custom additional files
+
+What if you wanted to add other file types?
+
+You can do so using the `withThing` property and corresponding `customTemplates.thing` pattern. For example, I wanted to add a `block.json` file and a PHP template partial for a WordPress theme. I did it like so: 
+
+```json
+{
+	"component": {
+		"default": {
+			"path": "blocks/custom",
+			"withStyle": false,
+			"withJson": true,
+			"withPhp": true,
+			"customTemplates": {
+				"component": "blocks/_block-generator-templates/TemplateName.vue",
+				"json": "blocks/_block-generator-templates/block.json",
+				"php": "blocks/_block-generator-templates/index.php"
+			},
+			"withTest": false,
+			"withStory": false
+		}
+	}
+}
+```
+
+WordPress is expecting `block.json` (not `template-name.json`), that's why it's named like that; but the `template-name` replacement conventions should still work for custom files. 
 
 ## License
 

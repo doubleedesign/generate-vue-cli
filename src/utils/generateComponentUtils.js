@@ -192,6 +192,42 @@ function componentStoryTemplateGenerator({ cliConfigFile, cmd, componentName, co
 	};
 }
 
+function customFileTemplateGenerator({ componentName, cmd, cliConfigFile, componentFileType, convertors }) {
+	const { customTemplates } = cliConfigFile.component[cmd.type];
+	const fileType = camelCase(componentFileType.split('with')[1]);
+	let filename = null;
+	let template = null;
+
+	// Check for a valid custom template for the corresponding custom component file.
+
+	if (!customTemplates || !customTemplates[fileType]) {
+		console.error(
+			chalk.red(
+				`ERROR: Custom component files require a valid custom template.
+				Please make sure you're pointing to the right custom template path in your generate-react-cli.json config file.`
+			)
+		);
+
+		return process.exit(1);
+	}
+
+	// --- Load and use the custom component template.
+
+	const { template: customTemplate, filename: customTemplateFilename } = getCustomTemplate(
+		componentName,
+		customTemplates[fileType]
+	);
+
+	template = customTemplate;
+	filename = customTemplateFilename;
+
+	return {
+		componentPath: componentDirectoryNameGenerator({ cmd, componentName, cliConfigFile, filename, convertors }),
+		filename,
+		template,
+	};
+}
+
 const buildInComponentFileTypes = {
 	COMPONENT: 'component',
 	TEST: 'withTest',
@@ -216,7 +252,7 @@ export function generateComponent(componentName, cmd, cliConfigFile) {
 			(cmd[componentFileType] && cmd[componentFileType].toString() === 'true') ||
 			componentFileType === buildInComponentFileTypes.COMPONENT
 		) {
-			const generateTemplate = componentTemplateGeneratorMap[componentFileType];
+			const generateTemplate = componentTemplateGeneratorMap[componentFileType] || customFileTemplateGenerator;
 
 			const converters = {
 				templatename: componentName,
